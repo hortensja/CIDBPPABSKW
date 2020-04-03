@@ -1,7 +1,7 @@
 FROM haproxy:1.7
 
 COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
-COPY ../secret/both.pem /usr/local/etc/haproxy/chainkey.pem
+COPY secret/both.pem /usr/local/etc/haproxy/chainkey.pem
 RUN apt-get update
 RUN chmod 000 /usr/local/etc/haproxy/chainkey.pem
 RUN cat /usr/local/etc/haproxy/chainkey.pem; cat /usr/local/etc/haproxy/haproxy.cfg

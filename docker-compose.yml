@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: Macedonio
+      MYSQL_USER: macedonio
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    container_name: hy_db
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+
+  backend:
+    depends_on:
+      - db
+    build: back/
+    restart: always
+    environment:
+      MYSQL_HOSTNAME: db
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    container_name: hy_backend
+
+  frontend:
+    build: front/
+    container_name: hy_frontend
+
+  proxy:
+    build: proxy/
+    restart: always
+    depends_on:
+      - backend
+      - db
+      - frontend
+    environment:
+      BACKEND_HOSTNAME: backend
+      FRONTEND_HOSTNAME: frontend
+      DATABASE_HOSTNAME: db
+    ports:
+      - 443:443
+    container_name: hy_proxy
+volumes:
+  db_data:
