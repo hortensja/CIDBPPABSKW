@@ -1,5 +1,9 @@
 from flask import Flask
+
+from mockup.event_prediction import predictions
+
 app = Flask(__name__)
+app.register_blueprint(predictions)
 
 @app.route('/api/')
 def hello_world():
