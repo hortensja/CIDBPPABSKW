@@ -1,0 +1,22 @@
+API biedronek
+
+get biedronka na podstawie danych z fronta (x,y) - get id biedronki
+put biedronka - wstaw nowa biedronke
+id biedronki -> x,y
+
+
+Model Biedronki:
+id, "adres"
+
+
+user api (?) low priority
+
+statystyki biedronki
+- dodaj wizyte
+
+tabela Eventy biedronkowe
+Event Biedronkowy:
+id biedronki, data, ocena wizyty
+
+id biedronki, czas -> predykcje +-3h
+id biedronki, ocena -> zapisala
