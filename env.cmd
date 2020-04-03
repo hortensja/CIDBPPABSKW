@@ -1,1 +1,1 @@
-SET DB_PASSWORD=password
+SET MYSQL_PASSWORD=password

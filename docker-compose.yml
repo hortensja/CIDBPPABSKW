@@ -8,14 +8,16 @@ services:
     restart: always
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
-      MYSQL_DATABASE: Macedonio
-      MYSQL_USER: macedonio
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: CIDBPP
+      MYSQL_USER: cidbpp
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     container_name: hy_db
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
+    ports:
+      - 3306:3306
 
 
   backend:
@@ -25,7 +27,7 @@ services:
     restart: always
     environment:
       MYSQL_HOSTNAME: db
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     container_name: hy_backend
 
   frontend:
@@ -45,6 +47,7 @@ services:
       DATABASE_HOSTNAME: db
     ports:
       - 443:443
+      - 80:80
     container_name: hy_proxy
 volumes:
   db_data:
