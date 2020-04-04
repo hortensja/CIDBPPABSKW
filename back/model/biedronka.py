@@ -13,6 +13,9 @@ def setup_biedronka_db(db):
         def find_biedronka_by_adres(self, adres):
             return Biedronka.query.filter_by(adres=adres).first()
 
+        def find_biedronka_by_id(self, id):
+            return Biedronka.query.filter_by(id=id).first()
+
         def create_biedronka(self, adres):
             biedronka = Biedronka(adres)
             db.session.add(biedronka)

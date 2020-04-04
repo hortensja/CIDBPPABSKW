@@ -20,3 +20,12 @@ def find_biedronka():
         biedronka = db.create_biedronka(adres)
     print(biedronka)
     return jsonify(id=biedronka.id, adres=biedronka.adres)
+
+
+@api_biedronka.route('/api/biedronka/<id>')
+def get_biedronka_data(id):
+    db = current_app.config["biedronka.db"]
+    biedronka = db.find_biedronka_by_id(id)
+    if biedronka is None:
+        return 'Nie ma takiego Biedrusko', 404
+    return jsonify(id=biedronka.id, adres=biedronka.adres)
